@@ -5,7 +5,7 @@ from fastapi import FastAPI
 from routes.product_routes import router as product_router
 from service.predection_service import sentimentPrediction
 from typing import Any
-from models import Sentiment
+from models.Sentiment import Sentiment
 
 app = FastAPI(title="Product Sentiment API")
 
