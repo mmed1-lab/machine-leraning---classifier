@@ -2,6 +2,7 @@
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from uuid import UUID
+import traceback
 
 from models.Product import Product
 from models.Comment import Comment
@@ -60,15 +61,9 @@ def get_product_comments(prodId: UUID):
 # 4. Add a comment to a product
 @router.post("/{prodId}/comments", response_model=Comment, status_code=201)
 def add_product_comment(prodId: UUID, data: CommentCreate):
-
     try:
-        return productService.addCommentProduct(
-            prodId,
-            data.message
-        )
-
-    except Exception:
-        raise HTTPException(
-            status_code=404,
-            detail=f"Product with id {prodId} not found"
-        )
+        return productService.addCommentProduct(prodId, data.message)
+    except Exception as e:
+        traceback.print_exc()
+        print("REAL ERROR:", repr(e))
+        raise HTTPException(status_code=404, detail=f"Error: {e!r}")

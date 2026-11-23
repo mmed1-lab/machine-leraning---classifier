@@ -76,21 +76,21 @@ class ProductService:
         raise Exception(f'No product with id: {prodId}')
     
     
-def addCommentProduct(self, prodId: str, message: str):
+    def addCommentProduct(self, prodId: str, message: str):
 
-    for product in self.products:
-        if str(product.id) == str(prodId):
+        for product in self.products:
+            if str(product.id) == str(prodId):
 
-            prediction = sentimentPrediction.predictSentiment(message)
+                prediction = sentimentPrediction.predictSentiment(message)
 
-            comment = Comment(
-                message=message,
-                label=prediction['sentiment']
-            )
+                comment = Comment(
+                    message=message,
+                    label=prediction['sentiment']
+                )
 
-            product.comments.append(comment)
+                product.comments.append(comment)
 
-            return comment
+                return comment
 
-    raise Exception(f'No product with id: {prodId}')
+        raise Exception(f'No product with id: {prodId}')
 
